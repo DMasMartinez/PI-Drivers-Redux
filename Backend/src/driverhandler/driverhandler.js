@@ -30,8 +30,8 @@ driverhandler.get('/',async(req,res)=>{
 })
 
 driverhandler.post('/',(req,res)=>{
-    const {id,driverRef,number,image,nationality,teams} = req.body
-    const postdriver = postadriver({id,driverRef,number,image,nationality,teams})
+    const {id,name,surname,description,image,nationality,birdate} = req.body
+    const postdriver = postadriver({id,name,surname,description,image,nationality,birdate})
     res.status(200).json(postdriver)
 })
 

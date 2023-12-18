@@ -1,16 +1,18 @@
-
+const { Driver } = require('../../db')
 
 const postadriver = (driver) =>{
-    const {id,driverRef,number,image,nationality,teams} = driver
+    const {id,name,surname,description,image,nationality,birdate} = driver
     const newdriver = {
-        "id": id,
-        "driverRef": driverRef,
-        "number": number,
-        "image": image,
-        "nationality": nationality,
-        "teams": teams
+        "id":id,
+        "name":name,
+        "surname":surname,
+        "description":description,
+        "image":image,
+        "nationality":nationality,
+        "birdate":birdate
     }
-    return newdriver
+    const drive = Driver.create(newdriver)
+    return drive
 }
 
 module.exports = postadriver;

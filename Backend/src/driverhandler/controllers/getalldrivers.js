@@ -1,7 +1,7 @@
-const urldata = 'http://localhost:5001'
-const drivers = []
+
+const { Driver } = require('../../db')
 const getalldrivers=()=>{
-    const showdriver = drivers
+    const showdriver = Driver.findAll()
     return showdriver
 }
 
