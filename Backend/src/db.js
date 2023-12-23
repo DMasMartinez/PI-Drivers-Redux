@@ -1,6 +1,6 @@
 require('dotenv').config()
 const {Sequelize} = require('sequelize')
-
+// hoooolllllaaaaa
 const {USER,PASSWORD,HOST,PORT,BDD} = process.env;
 const Driverfunction = require('./models/drivers')
 const Teamsfunction = require('./models/teams')
