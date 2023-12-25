@@ -63,6 +63,7 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>
+        <Route path='/form' element={<Form/>}/>
       </Routes>
       {/* <Drivers driverlist = {driverlist}/> */}
     </div>

@@ -1,5 +1,10 @@
 import { useState } from "react"
 import Drivers from "../components/Drivers"
+import { Link } from "react-router-dom"
+import Form from "./Form"
+import Landing from './Landing'
+import Home from "./Home"
+
 
 const Navbar = (props) => {
     const [input,setInput] = useState('')
@@ -10,6 +15,10 @@ const Navbar = (props) => {
     }
     return (
         <div>
+            <Link to='/form'>Formulario</Link>
+            <Link to='/'>Landing</Link>
+            <Link to='/Home'>Home</Link>
+            
             <button onClick={()=>props.search}>search</button>
             <input type="text" name="ide" value={input} onChange={changehandler}/>
             
