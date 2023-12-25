@@ -12,9 +12,14 @@ const postadriver = require('./controllers/postadriver')
 // })
 
 driverhandler.get('/:idDriver',async(req,res)=>{
-    const {idDriver} = req.params
-    const getdriver = await getdriverbyid(idDriver)
-    res.status(200).json(getdriver)
+    try{
+        const {idDriver} = req.params
+        const getdriver = await getdriverbyid(idDriver)
+        res.status(200).json(getdriver)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+    
 })
 
 driverhandler.get('/',async(req,res)=>{
