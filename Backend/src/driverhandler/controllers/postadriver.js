@@ -1,6 +1,6 @@
 const { Driver } = require('../../db')
 
-const postadriver = (driver) =>{
+const postadriver = async(driver) =>{
     const {id,name,surname,description,image,nationality,birdate} = driver
     const newdriver = {
         "id":id,
@@ -11,7 +11,7 @@ const postadriver = (driver) =>{
         "nationality":nationality,
         "birdate":birdate
     }
-    const drive = Driver.create(newdriver)
+    const drive = await Driver.create(newdriver)
     return drive
 }
 

@@ -1,16 +1,19 @@
-const arrayfromapitosee = require('../helper/arrayfromapitosee')
-const objectfromapitosee = require('../helper/objectfromapitosee')
+
+const objectfromapitosee2 = require('../helper/objectfromapitosee2')
+const { Driver } = require('../../db')
 
 const getdriverbyname = async(query)=>{
-    
-    await fetch(`http://localhost:5001/?name.forename=${query.name.forename}`)
-        .then(res=>res.json())
-        .then(data=>data[0])
-        .then(data=>objectfromapitosee(data))
+    const newdriver = await Driver.findOne({where:query})
+    if (newdriver!==null){
+        return newdriver.dataValues
+    }
 
-    return data
+    const driver = await fetch(`http://localhost:5001/drivers/?name.forename=${query.name}`)
+    const data = await driver.json()
+    const newobject = Driver.create(objectfromapitosee2(data))
 
-
+    // const newobject = Driver.create(objectfromapitosee(data))
+    return newobject
 }
 
 module.exports = getdriverbyname;

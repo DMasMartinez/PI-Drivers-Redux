@@ -28,16 +28,22 @@ driverhandler.get('/',async(req,res)=>{
         const {name} = req.query
         const getdriver = name?await getdriverbyname({name}):await getalldrivers()
         res.status(200).json(getdriver)
+        console.log({name})
     }catch(error){
         res.status(500).json({error:error.message})
     }
     // const getdriver = nationality?await getdriverbyname(req.query.nationality):await getalldrivers()
 })
 
-driverhandler.post('/',(req,res)=>{
-    const {id,name,surname,description,image,nationality,birdate} = req.body
-    const postdriver = postadriver({id,name,surname,description,image,nationality,birdate})
+driverhandler.post('/',async(req,res)=>{
+    try{
+        const {id,name,surname,description,image,nationality,birdate} = req.body
+    const postdriver = await postadriver({id,name,surname,description,image,nationality,birdate})
     res.status(200).json(postdriver)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+    
 })
 
 module.exports = driverhandler;

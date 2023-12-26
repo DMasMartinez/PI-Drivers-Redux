@@ -1,4 +1,3 @@
-
 const objectfromapitosee = (data) =>{
     const {id,name,number,image,nationality,teams,description,dob} = data
     const newobject = {
@@ -16,4 +15,4 @@ const objectfromapitosee = (data) =>{
     return newobject
 }
 
-module.exports = objectfromapitosee;    
+module.exports = objectfromapitosee; 
