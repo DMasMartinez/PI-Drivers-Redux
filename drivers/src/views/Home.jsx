@@ -1,9 +1,9 @@
 
-import showdrivers from "../components/Showdrivers"
+import Showdrivers from "../components/Showdrivers"
 const Home = (props) => {
     return (
         <div>
-            <Showdrivers showdrivers={props.showdrivers} setPage = {props.setPage} page = {props.page}/>
+            <Showdrivers showdrivers={props.showdrivers} setPage = {props.setPage} page = {props.page} showdrivershome={props.showdrivershome}/>
         </div>
     )
 }

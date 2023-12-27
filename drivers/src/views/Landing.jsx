@@ -8,7 +8,7 @@ const Landing = () => {
     }
     return (
         <div>
-            <button onClick={()=>gohome}>Home</button>
+            <button onClick={()=>gohome()}>Home</button>
             <h1>DRIVERS</h1>
             <img src={meteoro}/>
         </div>

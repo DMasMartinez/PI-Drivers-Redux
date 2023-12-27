@@ -5,9 +5,9 @@ const Drivers = (props) => {
             {props.driverlist.map((driver)=>{
                 return(
                     <Driver
-                        name = {driver.forename.name}
-                        surname = {driver.forename.surname}
-                        image = {driver.image.url}
+                        name = {driver.name}
+                        surname = {driver.surname}
+                        image = {driver.image}
                         description = {driver.description}
                     />
                 )

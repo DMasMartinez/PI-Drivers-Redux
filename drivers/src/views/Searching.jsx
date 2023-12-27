@@ -1,5 +1,5 @@
 import Drivers from "../components/Drivers";
-const Searching = () => {
+const Searching = (props) => {
     return (
         <div>
             <Drivers driverlist = {props.driverlist}/>

@@ -5,59 +5,63 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './views/Navbar';
+import Landing from './views/Landing';
+import Form from './views/Form';
+import Home from './views/Home';
+import Searching from './views/Searching';
 function App() {
   const [driverlist,setDriverlist] = useState([])
   const [showdrivers,setShowdrivers] = useState([])
-  const [qt,setQt] = useState(6)
+  const [qt,setQt] = useState(9)
   const [page,setPage] = useState(1)
   const initidx = qt*(page-1)
   const finalidx = page*qt
   const location = useLocation()
   const navigate = useNavigate()
-  const search = (id) => {
-    fetch(`http://localhost:3002/driver/${id}`)
+  const search = (name) => {
+    fetch(`http://localhost:3002/driver/?name=${name}`)
       .then(res=>res.json())
       .then(data=>setDriverlist([...driverlist,data]))
     navigate('/Searching')
   }
 
-  const showdrivershome = () => {
-    const drivers = fetch('http://localhost:5001/drivers/?_limit=60')
-    const data = drivers.json()
-    setShowdrivers([...showdrivers.slice(initidx,finalidx)])
+  const showdrivershome = async() => {
+    const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
+    const data = await drivers.json()
+    setShowdrivers([...data.slice(initidx,finalidx)])
   }
 
-  const orderalfa = (lista,setLista) =>{
+  const orderalfa = () =>{
     const alfabeto = 'abcdefghijklmnopqrstuvwxyz'
     const newlista = []
     for (var i=0;i<alfabeto.length;i++){
       var aux = alfabeto[i]
-      for (var j=0;j<lista.lenght;j++){
-        if (aux===lista[j].name.surname[0]){
-          newlista.push(lista[j])
+      for (var j=0;j<showdrivers.length;j++){
+        if (aux===showdrivers[j].name.forename[0]){
+          newlista.push(showdrivers[j])
         }
       }
 
     }
-    setLista(newlista)
+    return setShowdrivers(newlista)
   }
-  const ordernoalfa = (lista,setLista) => {
+  const ordernoalfa = () => {
     const alfabetoinverso = 'zyxwvutsrqponmlkjihgfedcba'
     const newlista = []
     for (var i=0;i<alfabetoinverso.length;i++){
       var aux = alfabetoinverso[i]
-      for (var j=0;j<lista.lenght;j++){
-        if (aux===lista[j].name.surname[0]){
-          newlista.push(lista[j])
+      for (var j=0;j<showdrivers.length;j++){
+        if (aux===showdrivers[j].name.forename[0]){
+          newlista.push(showdrivers[j])
         }
       }
     }
-    setLista(newlista)
+    return setShowdrivers(newlista)
   }
 
   return (
     <div className="App">
-      {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} ordernoalfa = {ordernoalfa}/>}
+      {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} ordernoalfa = {ordernoalfa} showdrivers={showdrivers} setShowdrivers = {setShowdrivers}/>}
       <h1>inicio de proyecto</h1>
       <Routes>
         <Route path='/' element={<Landing/>}/>
