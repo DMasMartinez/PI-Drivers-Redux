@@ -9,6 +9,7 @@ import Landing from './views/Landing';
 import Form from './views/Form';
 import Home from './views/Home';
 import Searching from './views/Searching';
+import Detail from './views/Detail';
 function App() {
   const [driverlist,setDriverlist] = useState([])
   const [showdrivers,setShowdrivers] = useState([])
@@ -31,32 +32,32 @@ function App() {
     setShowdrivers([...data.slice(initidx,finalidx)])
   }
 
-  const orderalfa = () =>{
+  const orderalfa = (lista) =>{
     const alfabeto = 'abcdefghijklmnopqrstuvwxyz'
     const newlista = []
     for (var i=0;i<alfabeto.length;i++){
-      var aux = alfabeto[i]
-      for (var j=0;j<showdrivers.length;j++){
-        if (aux===showdrivers[j].name.forename[0]){
-          newlista.push(showdrivers[j])
+      var aux = alfabeto[i].toUpperCase()
+      for (var j=0;j<lista.length;j++){
+        if (aux===lista[j].name.forename[0]){
+          newlista.push(lista[j])
         }
       }
 
     }
-    return setShowdrivers(newlista)
+    setShowdrivers(newlista)
   }
-  const ordernoalfa = () => {
+  const ordernoalfa = (lista) => {
     const alfabetoinverso = 'zyxwvutsrqponmlkjihgfedcba'
     const newlista = []
-    for (var i=0;i<alfabetoinverso.length;i++){
-      var aux = alfabetoinverso[i]
-      for (var j=0;j<showdrivers.length;j++){
-        if (aux===showdrivers[j].name.forename[0]){
-          newlista.push(showdrivers[j])
+    for (var i=0;i<=alfabetoinverso.length;i++){
+      var aux = alfabetoinverso[i].toUpperCase()
+      for (var j=0;j<=lista.length;j++){
+        if (aux===lista[j].name.forename[0]){
+          newlista.push(lista[j])
         }
       }
     }
-    return setShowdrivers(newlista)
+    setShowdrivers(newlista)
   }
 
   return (
@@ -64,6 +65,7 @@ function App() {
       {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} ordernoalfa = {ordernoalfa} showdrivers={showdrivers} setShowdrivers = {setShowdrivers}/>}
       <h1>inicio de proyecto</h1>
       <Routes>
+        <Route path='/detail/:name' element={<Detail/>}/>
         <Route path='/' element={<Landing/>}/>
         <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>

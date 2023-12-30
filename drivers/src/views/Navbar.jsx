@@ -21,7 +21,7 @@ const Navbar = (props) => {
             <Link to='/form'>Formulario</Link>
             <Link to='/'>Landing</Link>
             <Link to='/Home'>Home</Link>
-            {location.pathname!=='/form'&&<Orderalfa orderalfa={props.orderalfa} ordernoalfa={props.ordernoalfa}/>}
+            {location.pathname!=='/form'&&<Orderalfa orderalfa={props.orderalfa} ordernoalfa={props.ordernoalfa} showdrivers = {props.showdrivers} setShowdrivers={props.setShowdrivers}/>}
             
             <button onClick={()=>props.search(input)}>search</button>
             <input type="text" name="ide" value={input} onChange={changehandler}/>

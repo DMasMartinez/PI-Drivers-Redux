@@ -1,19 +1,23 @@
 import { useState } from "react"
-
+import { useReducer } from "react";
 const Orderalfa = (props) => {
     const [optionselect,setOptionselect] = useState('')
+    const [ignored,forceUpdate] = useReducer(x=>x+1,0);
     function handlerchange(event){
         if (event.target.name==="alfabetico"){
             const newchoice = event.target.value
             setOptionselect(newchoice)
             if (newchoice==='A-Z'){
-                return props.orderalfa()
-            }else if (newchoice==='Z-A'){
-                return props.ordernoalfa()
-            }else{
-                return
+                props.orderalfa(props.showdrivers)
             }
-        }   
+            else if (newchoice==='Z-A'){
+                props.ordernoalfa(props.showdriver)
+            }
+            // }else{
+            //     return
+            // }
+        }
+        forceUpdate()   
     }
     return (
         <div>
