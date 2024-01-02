@@ -34,6 +34,7 @@ function App() {
 
   const orderalfa = (lista) =>{
     const alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+    // const alfabeto = 'zyxwvutsrqponmlkjihgfedcba'
     const newlista = []
     for (var i=0;i<alfabeto.length;i++){
       var aux = alfabeto[i].toUpperCase()
@@ -47,15 +48,16 @@ function App() {
     setShowdrivers(newlista)
   }
   const ordernoalfa = (lista) => {
-    const alfabetoinverso = 'zyxwvutsrqponmlkjihgfedcba'
+    const alfabeto = 'zyxwvutsrqponmlkjihgfedcba'
     const newlista = []
-    for (var i=0;i<=alfabetoinverso.length;i++){
-      var aux = alfabetoinverso[i].toUpperCase()
-      for (var j=0;j<=lista.length;j++){
+    for (var i=0;i<alfabeto.length;i++){
+      var aux = alfabeto[i].toUpperCase()
+      for (var j=0;j<lista.length;j++){
         if (aux===lista[j].name.forename[0]){
           newlista.push(lista[j])
         }
       }
+
     }
     setShowdrivers(newlista)
   }

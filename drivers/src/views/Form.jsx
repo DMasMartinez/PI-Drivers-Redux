@@ -32,22 +32,46 @@ const Form = () => {
             errorhandler(error,setError,driver,driver.number)
         }
     }
-    
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await fetch('http://localhost:3002/driver/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(driver),
+          });
+    
+          if (response.ok) {
+            const nuevoRegistro = await response.json();
+            console.log('Registro creado con éxito:', nuevoRegistro);
+          } else {
+            console.error('Error al crear el registro:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error al enviar la solicitud:', error);
+        }
+    };
     return (
         <div>
-            <label htmlFor="name">Name: </label>
-            <input name="name" type="text"></input>
-            {error.name&&<h2>{error.name}</h2>}
-            <label htmlFor="surname">Surname: </label>
-            <input name="surname" type="text"></input>
-            {error.surname&&<h2>{error.surname}</h2>}
-            <label htmlFor="nationality">Nationality: </label>
-            <input name="nationality" type="text"></input>
-            {error.nationality&&<h2>{error.nationality}</h2>}
-            <label htmlFor="number">Number: </label>
-            <input name="number" type="string"></input>
-            {error.number&&<h2>{error.number}</h2>}
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="name">Name: </label>
+                <input name="name" type="text"></input>
+                {error.name&&<h2>{error.name}</h2>}
+                <label htmlFor="surname">Surname: </label>
+                <input name="surname" type="text"></input>
+                {error.surname&&<h2>{error.surname}</h2>}
+                <label htmlFor="nationality">Nationality: </label>
+                <input name="nationality" type="text"></input>
+                {error.nationality&&<h2>{error.nationality}</h2>}
+                <label htmlFor="number">Number: </label>
+                <input name="number" type="string"></input>
+                {error.number&&<h2>{error.number}</h2>}
+                <button type="Submit">submit</button>
+            </form>
 
         </div>
     )   

@@ -11,7 +11,7 @@ const Orderalfa = (props) => {
                 props.orderalfa(props.showdrivers)
             }
             else if (newchoice==='Z-A'){
-                props.ordernoalfa(props.showdriver)
+                props.ordernoalfa(props.showdrivers)
             }
             // }else{
             //     return
