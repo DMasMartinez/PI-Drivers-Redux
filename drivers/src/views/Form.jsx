@@ -1,10 +1,10 @@
 import { useState } from "react";
 function errorhandler(error,setError,driver,property){
-    if (driver.name.typeof()!=="string"){
-        setError({error,property:"incorrecto tipo de dato ingresado"})
+    if (typeof driver.property!=="string"){
+        setError({...error,property:"incorrecto tipo de dato ingresado"})
     }
 }
-const Form = () => {
+const Form = (props) => {
     const [driver,setDriver] = useState({
         name:"",
         surname:"",
@@ -35,7 +35,7 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        const newdriver = props.convert(driver)
         try {
           const response = await fetch('http://localhost:3002/driver/', {
             method: 'POST',
@@ -59,17 +59,21 @@ const Form = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name: </label>
-                <input name="name" type="text"></input>
+                <input name="name" type="text" value={driver.name} onChange={handlerchange}/>
                 {error.name&&<h2>{error.name}</h2>}
+
                 <label htmlFor="surname">Surname: </label>
-                <input name="surname" type="text"></input>
+                <input name="surname" type="text" value={driver.surname} onChange={handlerchange}/>
                 {error.surname&&<h2>{error.surname}</h2>}
+
                 <label htmlFor="nationality">Nationality: </label>
-                <input name="nationality" type="text"></input>
+                <input name="nationality" type="text" value={driver.nationality} onChange={handlerchange}/>
                 {error.nationality&&<h2>{error.nationality}</h2>}
+
                 <label htmlFor="number">Number: </label>
-                <input name="number" type="string"></input>
+                <input name="number" type="string" value={driver.number} onChange={handlerchange}/>
                 {error.number&&<h2>{error.number}</h2>}
+
                 <button type="Submit">submit</button>
             </form>
 

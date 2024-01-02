@@ -61,7 +61,16 @@ function App() {
     }
     setShowdrivers(newlista)
   }
-
+  const convert_to_format = (object) => {
+    const {name,surname,nationality,number} = object;
+    const newobject ={
+      "name":name,
+      "surname":surname,
+      "nationality":nationality,
+      "number":number
+    }
+    return newobject
+  }
   return (
     <div className="App">
       {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} ordernoalfa = {ordernoalfa} showdrivers={showdrivers} setShowdrivers = {setShowdrivers}/>}
@@ -71,7 +80,7 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>
-        <Route path='/form' element={<Form/>}/>
+        <Route path='/form' element={<Form convert = {convert_to_format}/>}/>
       </Routes>
       {/* <Drivers driverlist = {driverlist}/> */}
     </div>
