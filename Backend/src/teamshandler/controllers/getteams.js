@@ -1,22 +1,30 @@
 const { Team } = require('../../db')
 const jointeams = require('../helpers/jointeams')
-const axios = require('axios')
+const separarcomas = require('../helpers/separarcomas')
 
 const getteams = async() =>{
-    const teams = Team.findAll()
-    if (teams!==null){
-        return teams.dataValues
-    }
+    // const teams = Team.findAll()
+    // const newlist = []
+    // if (teams!==null){
+    //     return teams.dataValues
+    // }
 
-    const alldrivers = await axios.get('http://localhost:5001/drivers')
-    const data = await alldrivers.json()
-    // const equipos = Array.from(new Set(data.map(driver => driver.team)))
-    const equipos = data.data.map(driver => driver.teams)
-    // const driversjson = await alldrivers.json()
-    // const allteams = jointeams(driversjson)
-    // allteams.map((team)=>Team.create(team))
-    return equipos
+    const newlist = []
+    const newlist2 = []
+    const newlist3 = []
+    const alldriver = await fetch('http://localhost:5001/drivers')
+    const drivers = await alldriver.json()
+    const teamsaso = drivers.filter((driver)=>(driver.teams)!==undefined)
+    const onlyteams = teamsaso.map((driver)=>newlist.push(driver.teams))
     
+
+    for (var i=0;i<=newlist.length-1;i++){
+        var aux = newlist[i].split(',')
+        newlist2.push(...aux)  
+    }
+    const newset = new Set(newlist2)
+    const newarray = Array.from(newset)
+    return newarray
 }
 
 module.exports = getteams;
