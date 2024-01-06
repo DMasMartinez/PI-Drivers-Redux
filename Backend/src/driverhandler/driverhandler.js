@@ -37,8 +37,8 @@ driverhandler.get('/',async(req,res)=>{
 
 driverhandler.post('/',async(req,res)=>{
     try{
-        const {id,name,surname,description,image,nationality,birdate} = req.body
-    const postdriver = await postadriver({id,name,surname,description,image,nationality,birdate})
+        const {id,name,surname,description,image,nationality,birdate,teams} = req.body
+    const postdriver = await postadriver({id,name,surname,description,image,nationality,birdate,teams})
     res.status(200).json(postdriver)
     }catch(err){
         res.status(500).json({err:err.message})

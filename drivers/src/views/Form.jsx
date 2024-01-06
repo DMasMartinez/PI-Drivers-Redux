@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import Select, { useStateManager } from 'react-select';
+import { debounce } from 'lodash';
+
 function errorhandler(error,setError,driver,property){
     if (typeof driver.property!=="string"){
         setError({...error,property:"incorrecto tipo de dato ingresado"})
     }
 }
+// arreglar los espacios cuando traemos los equipos del back, agregar campos que faltan en formulario, agregar el driver creado
+// en formulario al array de showdrivers para que aparesca en home y anadir un atributo tipo bdd fijo para que pueda ser filtrado luego 
 const Form = (props) => {
+    const [newdriver,setNewdriver]= useState('')
     const [driver,setDriver] = useState({
         name:"",
         surname:"",
         nationality:"",
-        number:0
+        number:0,
+        teams:''
     })
     const [error,setError] = useState({
         name:"",
         surname:"",
         nationality:"",
-        number:""
+        number:"",
+        teams:""
     })
     function handlerchange(event){
         if (event.target.name==="name"){
@@ -30,8 +38,15 @@ const Form = (props) => {
         }else if (event.target.name==="number"){
             setDriver({...driver,number:event.target.value})
             errorhandler(error,setError,driver,driver.number)
+        }else if (event.target.name==="teams"){
+            const newteam = event.target.value
+            setDriver({...driver,teams:driver.teams+' '+newteam})
         }
     }
+
+    // const handlerchangeteams = (selectOption) => {
+    //     setDriver({...driver,teams:selectOption?[selectOption.value]:[]})
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,9 +70,18 @@ const Form = (props) => {
           console.error('Error al enviar la solicitud:', error);
         }
     };
+    useEffect(()=>{
+        props.showteamsform()
+    },[])
+    console.log(driver.teams)
+    const teamoptions = props.team.map((idx,team)=>({
+        label:idx,
+        value:idx
+    }))
     return (
         <div>
             <form onSubmit={handleSubmit}>
+
                 <label htmlFor="name">Name: </label>
                 <input name="name" type="text" value={driver.name} onChange={handlerchange}/>
                 {error.name&&<h2>{error.name}</h2>}
@@ -73,6 +97,37 @@ const Form = (props) => {
                 <label htmlFor="number">Number: </label>
                 <input name="number" type="string" value={driver.number} onChange={handlerchange}/>
                 {error.number&&<h2>{error.number}</h2>}
+
+                <select name="teams" value={driver.teams} onChange={handlerchange}>
+                    {props.team.map((team)=>{
+                        return(
+                            <option value={team}>{team}</option>
+                        )
+                    })}
+                </select>
+
+                {/* <Select
+                    name="teamss"
+                    value={teamoptions.filter(option=>driver.teams.includes(option.value))}
+                    onChange={handlerchangeteams}
+                    options={teamoptions}
+                    isClearable
+                    isSearchable
+                    placeholder='selecciona una opcion..'
+                /> */}
+
+                {/* <select name="teams" value={driver.teams} onChange={handlerchangeteams}>
+                    <option value='daniel'>daniel</option>
+                    <option value='jorge'>jorge</option>
+                </select> */}
+
+                {/* {props.team.map((team)=>{
+                    return (
+                        <div>
+                            <h2>{team}</h2>
+                        </div>
+                    )
+                })} */}
 
                 <button type="Submit">submit</button>
             </form>

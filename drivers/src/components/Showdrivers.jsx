@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import Driver from "./Driver"
+import Pagination from "./Pagination"
 // import { useSelector,useDispatch } from "react-redux"
 // import { fillhd,fillsd,orderalfa,orderopositealfa,orderalfasearch,orderopositealfasearch } from "../redux/actions"
 const Showdrivers = (props) => {
@@ -27,20 +28,25 @@ const Showdrivers = (props) => {
     // const conductores = useSelector(state=>state.homedrivers)
     // console.log(conductores)
     return (
-        <div>
-            {props.showdrivers.map((driver)=>{
-                return (
-                    <Driver
-                        name = {driver.name.forename}
-                        surname = {driver.name.surname}
-                        image = {driver.image.url}
-                        description = {driver.description}
-                    />
-                )
-            })}
-            <button onClick={()=>nexpage()}>anterior</button>
-            <button onClick={()=>previouspage()}>siguiente</button>
+        <div class="container text-center">
+            <div class="row">
+                {props.showdrivers.map((driver)=>{
+                    return (
+                        <div class="col-md-6 md-6">
+                            <Driver
+                                name = {driver.name.forename}
+                                surname = {driver.name.surname}
+                                image = {driver.image.url}
+                                description = {driver.description}
+                                teams = {driver.teams}
+                            />
+                        </div>
+                    )
+                })}
+                <Pagination nexpage={nexpage} previouspage={previouspage} showdrivers = {props.showdrivers} qt = {props.qt}/>
+            </div>
         </div>
+
     )
 }
 

@@ -13,6 +13,8 @@ import Detail from './views/Detail';
 function App() {
   const [driverlist,setDriverlist] = useState([])
   const [showdrivers,setShowdrivers] = useState([])
+  const [team,setTeam]=useState([])
+  
   const [qt,setQt] = useState(9)
   const [page,setPage] = useState(1)
   const initidx = qt*(page-1)
@@ -30,6 +32,11 @@ function App() {
     const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
     const data = await drivers.json()
     setShowdrivers([...data.slice(initidx,finalidx)])
+  }
+  const showteamsform = async() => {
+    const teams = await fetch('http://localhost:3002/teams/')
+    const data = await teams.json()
+    setTeam(data)
   }
 
   const orderalfa = (lista) =>{
@@ -74,13 +81,12 @@ function App() {
   return (
     <div className="App">
       {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} ordernoalfa = {ordernoalfa} showdrivers={showdrivers} setShowdrivers = {setShowdrivers}/>}
-      <h1>inicio de proyecto</h1>
       <Routes>
         <Route path='/detail/:name' element={<Detail/>}/>
         <Route path='/' element={<Landing/>}/>
-        <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome}/>}/>
+        <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome} qt={qt}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>
-        <Route path='/form' element={<Form convert = {convert_to_format}/>}/>
+        <Route path='/form' element={<Form convert = {convert_to_format} showteamsform={showteamsform} team={team}/>}/>
       </Routes>
       {/* <Drivers driverlist = {driverlist}/> */}
     </div>
