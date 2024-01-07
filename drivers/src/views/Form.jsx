@@ -9,6 +9,7 @@ function errorhandler(error,setError,driver,property){
 }
 // arreglar los espacios cuando traemos los equipos del back, agregar campos que faltan en formulario, agregar el driver creado
 // en formulario al array de showdrivers para que aparesca en home y anadir un atributo tipo bdd fijo para que pueda ser filtrado luego 
+// el driver que se agregue de formulario como identificador podemos usar un atributo que no se muestre
 const Form = (props) => {
     const [newdriver,setNewdriver]= useState('')
     const [driver,setDriver] = useState({
@@ -16,6 +17,8 @@ const Form = (props) => {
         surname:"",
         nationality:"",
         number:0,
+        birdate:"",
+        description:"",
         teams:''
     })
     const [error,setError] = useState({
@@ -23,6 +26,8 @@ const Form = (props) => {
         surname:"",
         nationality:"",
         number:"",
+        birdate:"",
+        description:"",
         teams:""
     })
     function handlerchange(event){
@@ -41,6 +46,10 @@ const Form = (props) => {
         }else if (event.target.name==="teams"){
             const newteam = event.target.value
             setDriver({...driver,teams:driver.teams+' '+newteam})
+        }else if (event.target.name==="birdate"){
+            setDriver({...driver,birdate:event.target.value})
+        }else if (event.target.name==="description"){
+            setDriver({...driver,description:event.target.value})
         }
     }
 
@@ -70,10 +79,14 @@ const Form = (props) => {
           console.error('Error al enviar la solicitud:', error);
         }
     };
+    // const addnewdriver=()=>{
+    //     props.setShowdrivers([...props.showdrivers,driver])
+    // }
     useEffect(()=>{
         props.showteamsform()
+        // props.showdrivershome()
     },[])
-    console.log(driver.teams)
+    console.log(props.showdrivers.length)
     const teamoptions = props.team.map((idx,team)=>({
         label:idx,
         value:idx
@@ -97,6 +110,14 @@ const Form = (props) => {
                 <label htmlFor="number">Number: </label>
                 <input name="number" type="string" value={driver.number} onChange={handlerchange}/>
                 {error.number&&<h2>{error.number}</h2>}
+
+                <label htmlFor="birdate">Birthdate: </label>
+                <input name="birdate" type="string" value={driver.birdate} onChange={handlerchange}/>
+                {error.birdate&&<h2>{error.birdate}</h2>}
+
+                <label htmlFor="description">Description: </label>
+                <input name="description" type="string" value={driver.description} onChange={handlerchange}/>
+                {error.description&&<h2>{error.description}</h2>}
 
                 <select name="teams" value={driver.teams} onChange={handlerchange}>
                     {props.team.map((team)=>{
@@ -137,3 +158,5 @@ const Form = (props) => {
 }
 
 export default Form
+
+// onClick={()=>addnewdriver()}

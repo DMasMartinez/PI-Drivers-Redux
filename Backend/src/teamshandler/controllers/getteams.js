@@ -22,7 +22,8 @@ const getteams = async() =>{
         var aux = newlist[i].split(',')
         newlist2.push(...aux)  
     }
-    const newset = new Set(newlist2)
+    const arraysinespacios = newlist2.map((team)=>team.replace(/^\s+/g, ''))
+    const newset = new Set(arraysinespacios)
     const newarray = Array.from(newset)
     return newarray
 }

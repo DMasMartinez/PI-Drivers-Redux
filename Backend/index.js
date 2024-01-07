@@ -6,7 +6,7 @@ const getteams = require('./src/teamshandler/controllers/getteams')
 
 
 
-database.sync({force:false}).then(async()=>{
+database.sync({force:true}).then(async()=>{
     await server.listen(3002,()=>{
         console.log('servidor abierto en terminal 3002')
     })

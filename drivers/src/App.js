@@ -33,6 +33,11 @@ function App() {
     const data = await drivers.json()
     setShowdrivers([...data.slice(initidx,finalidx)])
   }
+  const showdrivershome1 = async() => {
+    const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
+    const data = await drivers.json()
+    setShowdrivers([...data.slice(54,60)])
+  }
   const showteamsform = async() => {
     const teams = await fetch('http://localhost:3002/teams/')
     const data = await teams.json()
@@ -86,7 +91,7 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome} qt={qt}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>
-        <Route path='/form' element={<Form convert = {convert_to_format} showteamsform={showteamsform} team={team}/>}/>
+        <Route path='/form' element={<Form convert = {convert_to_format} showteamsform={showteamsform} team={team} setShowdrivers={setShowdrivers} showdrivers={showdrivers} showdrivershome1={showdrivershome1}/>}/>
       </Routes>
       {/* <Drivers driverlist = {driverlist}/> */}
     </div>
