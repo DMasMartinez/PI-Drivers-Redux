@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useState,useEffect } from "react"
-
+import '../Styles/Detail.css'
 const Detail = () => {
     const {name} = useParams()
     const [driver,setDriver] = useState([])
@@ -18,14 +18,18 @@ const Detail = () => {
     
     console.log(driver)
     return (
-        <div>
-            <h2>Name :{driver.name}</h2>
-            <img src={driver.image} alt={driver.name}/>
-            <h2>Surname : {driver.surname}</h2>
-            <h2>Nationality :{driver.nationality}</h2>
-            <h2>Description :{driver.description}</h2>
-            <h2>Birthdate :{driver.birdate}</h2>
-            <h2>Equipos :{driver.teams}</h2>
+        <div class="framedetail">
+            <div class="image">
+                <img src={driver.image} alt={driver.name}/> 
+            </div>
+            <div class="cardtext">
+                <h2>Name :{driver.name}</h2>
+                <h2>Surname : {driver.surname}</h2>
+                <h2>Nationality :{driver.nationality}</h2>
+                <h2>Description :{driver.description}</h2>
+                <h2>Birthdate :{driver.birdate}</h2>
+                <h2>Equipos :{driver.teams}</h2>
+            </div>
         </div>
     )
 }

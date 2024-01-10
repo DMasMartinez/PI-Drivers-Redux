@@ -35,6 +35,7 @@ driverhandler.get('/',async(req,res)=>{
     // const getdriver = nationality?await getdriverbyname(req.query.nationality):await getalldrivers()
 })
 
+
 driverhandler.post('/',async(req,res)=>{
     try{
         const {id,name,surname,description,image,nationality,birdate,teams} = req.body

@@ -1,0 +1,25 @@
+
+.framedetail{
+    border: green inset;
+    border-radius: 10px;
+    border-width: 20px;
+    background-color: rgba(115, 255, 0, 0.7);
+    background-image:url('../utils/detail.jpg');
+    background-size: 1000px 1100px;
+    height: 1100px;
+    width: 1000px;
+    margin: 150px 100px 0px 300px;
+}
+.image img{
+    border-radius: 10px;
+    margin: 50px 50px 0px 100px;
+    height: 400px;
+    width: 400px;
+    
+}
+
+.cardtext {
+    color: white;
+    border: black;
+    background-color: rgba(115, 255, 0, 0.6);
+}

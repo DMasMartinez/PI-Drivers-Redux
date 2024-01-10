@@ -5,6 +5,7 @@ import Form from "./Form"
 import Landing from './Landing'
 import Home from "./Home"
 import Orderalfa from "../components/Orderalfa"
+import Orderalfasearch from "../components/Orderalfasearch"
 import { useLocation } from "react-router-dom"
 
 const Navbar = (props) => {
@@ -46,7 +47,7 @@ const Navbar = (props) => {
                     </form> */}
                 </div>
             </div>
-            {location.pathname!=='/form'&&<Orderalfa orderalfa={props.orderalfa} ordernoalfa={props.ordernoalfa} showdrivers = {props.showdrivers} setShowdrivers={props.setShowdrivers}/>}
+            {(location.pathname!=='/form'&&location.pathname!=='/Searching')?(<Orderalfa orderalfa={props.orderalfa} ordernoalfa={props.ordernoalfa} showdrivers = {props.showdrivers} setShowdrivers={props.setShowdrivers} origen={props.origen} setOrigen={props.setOrigen} showteamsform={props.showteamsform} team={props.team} driversteam={props.driversteam} fecha_ascendente={props.fecha_ascendente} fecha_descendente={props.fecha_descendente}/>):(<Orderalfasearch driverlist={props.driverlist} setDriverlist={props.setDriverlist} orderalfa1={props.orderalfa1} ordernoalfa1={props.ordernoalfa1} driversteam1={props.driversteam1} fecha_ascendente1={props.fecha_ascendente1} fecha_descendente1={props.fecha_descendente1} showteamsform={props.showteamsform} team={props.team}/>)}
         </nav>
         
     )

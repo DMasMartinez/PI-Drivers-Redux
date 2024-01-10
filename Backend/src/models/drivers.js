@@ -35,7 +35,7 @@ module.exports = (database) =>{
         },
         description:{
             type:DataTypes.TEXT,
-        }
+        },
         
     },
     

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import '../Styles/Driver.css'
 const Driver = (props) => {
     const detalle =`/detail/:${props.name}`
     return (
@@ -19,16 +20,16 @@ const Driver = (props) => {
 //     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 //   </div>
 // </div>
-        <div class="card text-bg-dark mb-3">
-            <div class="card" style={{marginRight: 12 + 'em'}}>
+        <div class="framedriver">
+            <div class="imagen" style={{marginRight: 12 + 'em'}}>
                 <img src={props.image} alt={props.name} class="card-img-top"/>
             </div>
 
-            <div class="card-body">
-                <h4 class="card-title">{props.name}</h4>
-                <h5 class="card-title">{props.surname}</h5>
-                <p class="card-text">{props.teams}</p>
-                <a href={detalle} class="btn btn-primary">Detail</a>
+            <div class="textocard">
+                <h4>{props.name}</h4>
+                <h5>{props.surname}</h5>
+                <p>{props.teams}</p>
+                <a href={detalle}>Detail</a>
             </div>
         </div>
     )

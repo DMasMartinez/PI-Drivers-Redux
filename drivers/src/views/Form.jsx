@@ -10,8 +10,9 @@ function errorhandler(error,setError,driver,property){
 // arreglar los espacios cuando traemos los equipos del back, agregar campos que faltan en formulario, agregar el driver creado
 // en formulario al array de showdrivers para que aparesca en home y anadir un atributo tipo bdd fijo para que pueda ser filtrado luego 
 // el driver que se agregue de formulario como identificador podemos usar un atributo que no se muestre
+
+// traigo del back lo que esta en la base de datos y lo traigo con useefect del componente padre
 const Form = (props) => {
-    const [newdriver,setNewdriver]= useState('')
     const [driver,setDriver] = useState({
         name:"",
         surname:"",
@@ -59,7 +60,7 @@ const Form = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newdriver = props.convert(driver)
+        // const newdriver = props.convert(driver)
         try {
           const response = await fetch('http://localhost:3002/driver/', {
             method: 'POST',
@@ -79,14 +80,11 @@ const Form = (props) => {
           console.error('Error al enviar la solicitud:', error);
         }
     };
-    // const addnewdriver=()=>{
-    //     props.setShowdrivers([...props.showdrivers,driver])
-    // }
     useEffect(()=>{
         props.showteamsform()
         // props.showdrivershome()
     },[])
-    console.log(props.showdrivers.length)
+    console.log(props.showdrivers)
     const teamoptions = props.team.map((idx,team)=>({
         label:idx,
         value:idx
@@ -126,29 +124,6 @@ const Form = (props) => {
                         )
                     })}
                 </select>
-
-                {/* <Select
-                    name="teamss"
-                    value={teamoptions.filter(option=>driver.teams.includes(option.value))}
-                    onChange={handlerchangeteams}
-                    options={teamoptions}
-                    isClearable
-                    isSearchable
-                    placeholder='selecciona una opcion..'
-                /> */}
-
-                {/* <select name="teams" value={driver.teams} onChange={handlerchangeteams}>
-                    <option value='daniel'>daniel</option>
-                    <option value='jorge'>jorge</option>
-                </select> */}
-
-                {/* {props.team.map((team)=>{
-                    return (
-                        <div>
-                            <h2>{team}</h2>
-                        </div>
-                    )
-                })} */}
 
                 <button type="Submit">submit</button>
             </form>

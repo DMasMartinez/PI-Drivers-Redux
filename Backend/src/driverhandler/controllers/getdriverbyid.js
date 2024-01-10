@@ -5,7 +5,7 @@ const { Driver } = require('../../db')
 const getdriverbyid=async(id)=>{
     // const alldrivers = getalldrivers()
 
-    const driver = await    Driver.findByPk(id)
+    const driver = await Driver.findByPk(id)
     if (driver!==null){
         return driver.dataValues
     }
