@@ -61,6 +61,7 @@ const Orderalfa = (props) => {
                 <option value="BDD">BDD</option>
             </select>
             <select name="teams" value={newteam} onChange={handlerchange}>
+                <option value=" "> </option>
                 {props.team.map((team)=>{
                     return (
                         <option value={team}>{team}</option>

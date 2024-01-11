@@ -14,6 +14,7 @@ function errorhandler(error,setError,driver,property){
 // traigo del back lo que esta en la base de datos y lo traigo con useefect del componente padre
 const Form = (props) => {
     const [driver,setDriver] = useState({
+        id:55000,
         name:"",
         surname:"",
         nationality:"",
@@ -31,6 +32,9 @@ const Form = (props) => {
         description:"",
         teams:""
     })
+    function newid(){
+        setDriver({...driver,id:driver.id+1})
+    }
     function handlerchange(event){
         if (event.target.name==="name"){
             setDriver({...driver,name:event.target.value})
@@ -125,7 +129,7 @@ const Form = (props) => {
                     })}
                 </select>
 
-                <button type="Submit">submit</button>
+                <button type="Submit" onClick={()=>newid()}>submit</button>
             </form>
 
         </div>

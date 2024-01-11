@@ -31,15 +31,30 @@ function App() {
     navigate('/Searching')
   }
 
-  const showdrivershome = async() => {
+  const showdrivershome1 = async() => {
     const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
     const data = await drivers.json()
     setShowdrivers([...data.slice(initidx,finalidx)])
   }
+  const showdrivershome = async() => {
+    const newarrayindex = Array.from({ length: 60 }, (_, index) => index+1)
+    const drivers = newarrayindex.map(async(id)=>{
+      const res = await fetch(`http://localhost:5001/drivers/${id}`)
+      const data = res.json()
+      return data
+    })
+    const alldriver = await Promise.all(drivers)
+
+    // newarrayindex.map((id)=>fetch(`http://localhost:5001/drivers/${id}`))
+    // const data = newarrayindex.map((datas)=>datas.json())
+    // const resultado = await Promise.all(data)
+    // setShowdrivers([...resultado.slice(initidx,finalidx)])
+    setShowdrivers([...alldriver.slice(initidx,finalidx)])
+  }
   const showbddform = async() => {
     const drivers = await fetch('http://localhost:3002/driver/')
     const data = await drivers.json()
-    setShowdriversbdd(data)
+    setShowdriversbdd(data.filter((data)=>data.id>55000))
   }
   const showteamsform = async() => {
     const teams = await fetch('http://localhost:3002/teams/')
@@ -109,7 +124,7 @@ function App() {
   const driversteam =(team,lista)=>{
     const listilla = []
     for (var i=0;i<lista.length;i++){
-      const newlist = lista[i].teams.split(',')
+      const newlist = lista[i].teams.split(', ')
       for (var j=0;j<newlist.length;j++){
         if (newlist[j]===team){
           listilla.push(lista[i])
@@ -143,8 +158,8 @@ function App() {
       for (var j=0;j<lista.length;j++){
         // const fechaObjeto = new Date(fechaString);
         // Obtener día, mes y año
-        const dia = listaascendente[i].getDate().toString().padStart(2, '0'); // Agrega un cero al inicio si es necesario
-        const mes = (listaascendente[i].getMonth() + 1).toString().padStart(2, '0'); // Sumar 1 porque los meses van de 0 a 11
+        const dia = listaascendente[i].getDate().toString().padStart(2, '0');
+        const mes = (listaascendente[i].getMonth() + 1).toString().padStart(2, '0');
         const año = listaascendente[i].getFullYear();
         const newday= parseInt(dia,10)
         const newday1 = (newday+1).toString()
@@ -186,39 +201,27 @@ function App() {
   }
   const fecha_descendente=(lista)=>{
     // const fechaObjeto = new Date(objetoConFecha.fecha)
-    // // const newlista = []
-    // // const newlista2 = []
-    // const newlista3 = []
-    // // lista.map((driver)=>newlista.push(driver.dob))
-    // // newlista.map((driver)=>newlista2.push(new Date(driver)))
-    // // const listadescendente = newlista2.sort((a,b)=>b-a)
-    const newlista = lista.map((driver) => new Date(driver.dob));
-
-    // Ordenar las fechas de forma descendente
-    const listadescendente = newlista.sort((a, b) => b - a);
-    // for (var i=0;i<listadescendente.length;i++){
-    //     const dia = listadescendente[i].getDate().toString().padStart(2, '0'); // Agrega un cero al inicio si es necesario
-    //     const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0'); // Sumar 1 porque los meses van de 0 a 11
-    //     const año = listadescendente[i].getFullYear();
-    //     const newday= parseInt(dia,10)
-    //     const newday1 = (newday+1).toString()
-    //     const fechaFormateada = `${año}-${mes}-${newday1}`
-    //   for (var j=0;j<lista.length;j++){
-    //     if (lista[j].dob===fechaFormateada){
-    //       newlista3.push(lista[j])
-    //     }
-    //   }
-    // }
-    const newlista3 = listadescendente.map((fechaOrdenada) => {
-      const dia = fechaOrdenada.getDate().toString().padStart(2, '0');
-      const mes = (fechaOrdenada.getMonth() + 1).toString().padStart(2, '0');
-      const año = fechaOrdenada.getFullYear();
-      const newday = parseInt(dia, 10);
-      const newday1 = (newday + 1).toString();
-      const fechaFormateada = `${año}-${mes}-${newday1}`;
-      return lista.find((driver) => driver.dob === fechaFormateada)
-    })
+    const newlista = []
+    const newlista2 = []
+    const newlista3 = []
+    lista.map((driver)=>newlista.push(driver.dob))
+    newlista.map((driver)=>newlista2.push(new Date(driver)))
+    const listadescendente = newlista2.sort((a,b)=>b-a)
+    for (var i=0;i<listadescendente.length;i++){
+        const dia = listadescendente[i].getDate().toString().padStart(2, '0'); // Agrega un cero al inicio si es necesario
+        const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0'); // Sumar 1 porque los meses van de 0 a 11
+        const año = listadescendente[i].getFullYear();
+        const newday= parseInt(dia,10)
+        const newday1 = (newday+1).toString()
+        const fechaFormateada = `${año}-${mes}-${newday1}`
+      for (var j=0;j<lista.length;j++){
+        if (lista[j].dob===fechaFormateada){
+          newlista3.push(lista[j])
+        }
+      }
+    }
     setShowdrivers(newlista3)
+    
   }
   const fecha_descendente1=(lista)=>{
     // const fechaObjeto = new Date(objetoConFecha.fecha)
