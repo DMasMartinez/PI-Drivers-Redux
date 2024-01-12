@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import Driver from "./Driver"
 import Pagination from "./Pagination"
+import '../Styles/Showdrivers.css'
 // import { useSelector,useDispatch } from "react-redux"
 // import { fillhd,fillsd,orderalfa,orderopositealfa,orderalfasearch,orderopositealfasearch } from "../redux/actions"
 const Showdrivers = (props) => {
@@ -28,11 +29,10 @@ const Showdrivers = (props) => {
     // const conductores = useSelector(state=>state.homedrivers)
     // console.log(conductores)
     return (
-        <div class="container text-center">
-            <div class="row">
+            <div class="contenedor">
                 {props.showdrivers.map((driver)=>{
                     return (
-                        <div class="col-md-6 md-6">
+                        <div class="elemento">
                             <Driver
                                 name = {driver.name.forename}
                                 surname = {driver.name.surname}
@@ -45,27 +45,28 @@ const Showdrivers = (props) => {
                 })}
                 <Pagination nexpage={nexpage} previouspage={previouspage} showdrivers = {props.showdrivers} qt = {props.qt}/>
             </div>
-        </div>
+
+        
 
     )
 }
 
 export default Showdrivers;
-{/* <Driver
-                        name = {driver.name.forename}
-                        surname = {driver.name.forename}
-                        image = {driver.image.url}
-                        description = {driver.description}
-                    /> */}
-
-
-                    // {props.showdrivers.map((driver)=>{
-                    //     return (
-                    //         <Driver
-                    //             name = {driver.name.forename}
-                    //             surname = {driver.name.surname}
-                    //             image = {driver.image.url}
-                    //             description = {driver.description}
-                    //         />
-                    //     )
-                    // })}
+        // <div class="container text-center">
+        //     <div class="row">
+        //         {props.showdrivers.map((driver)=>{
+        //             return (
+        //                 <div class="col-md-6 md-6">
+        //                     <Driver
+        //                         name = {driver.name.forename}
+        //                         surname = {driver.name.surname}
+        //                         image = {driver.image.url}
+        //                         description = {driver.description}
+        //                         teams = {driver.teams}
+        //                     />
+        //                 </div>
+        //             )
+        //         })}
+        //         <Pagination nexpage={nexpage} previouspage={previouspage} showdrivers = {props.showdrivers} qt = {props.qt}/>
+        //     </div>
+        // </div>

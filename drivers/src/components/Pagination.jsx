@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import '../Styles/Pagination.css'
 
 const Pagination = (props) => {
     const total_pages = 60/props.qt
@@ -12,31 +13,27 @@ const Pagination = (props) => {
     },[])
     console.log(newarray)
     return (
-        <div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
+            <div class="framepagination">
+                    <span class="extremoizq">
                         <a class="page-link" href="#" aria-label="Previous">
                             <button aria-hidden="true" onClick={()=>props.previouspage()}>&laquo;</button>
                         </a>
-                    </li>
+                    </span>
                     {newarray.map((page)=>{
                         return (
-                            <div>
-                                <li class="page-item">
+                            <div class="intermedios">
+                                <span>
                                     <a class="page-link" href="#">{page}</a>
-                                </li>
+                                </span>
                             </div>
                         )
                     })}
-                    <li class="page-item">
+                    <span class="extremoder">
                         <a class="page-link" href="#" aria-label="Next">
                             <button aria-hidden="true" onClick={()=>props.nexpage()}>&raquo;</button>
                         </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                    </span>
+            </div>
     )
 }
 
