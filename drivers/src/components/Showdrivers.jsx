@@ -6,6 +6,8 @@ import '../Styles/Showdrivers.css'
 // import { fillhd,fillsd,orderalfa,orderopositealfa,orderalfasearch,orderopositealfasearch } from "../redux/actions"
 const Showdrivers = (props) => {
     // const dispatch = useDispatch()
+    const initidx = props.qt*(props.page-1)
+    const finalidx = props.page*props.qt
     function nexpage(){
         if (props.page<=10){
             props.setPage(props.page+1)
@@ -30,7 +32,7 @@ const Showdrivers = (props) => {
     // console.log(conductores)
     return (
             <div class="contenedor">
-                {props.showdrivers.map((driver)=>{
+                {props.showdrivers.slice(initidx,finalidx).map((driver)=>{
                     return (
                         <div class="elemento">
                             <Driver

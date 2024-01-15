@@ -20,8 +20,8 @@ function App() {
 
   const [qt,setQt] = useState(9)
   const [page,setPage] = useState(1)
-  const initidx = qt*(page-1)
-  const finalidx = page*qt
+  // const initidx = qt*(page-1)
+  // const finalidx = page*qt
   const location = useLocation()
   const navigate = useNavigate()
   const search = (name) => {
@@ -31,11 +31,11 @@ function App() {
     navigate('/Searching')
   }
 
-  const showdrivershome1 = async() => {
-    const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
-    const data = await drivers.json()
-    setShowdrivers([...data.slice(initidx,finalidx)])
-  }
+  // const showdrivershome1 = async() => {
+  //   const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
+  //   const data = await drivers.json()
+  //   setShowdrivers([...data.slice(initidx,finalidx)])
+  // }
   const showdrivershome = async() => {
     const newarrayindex = Array.from({ length: 60 }, (_, index) => index+1)
     const drivers = newarrayindex.map(async(id)=>{
@@ -49,7 +49,8 @@ function App() {
     // const data = newarrayindex.map((datas)=>datas.json())
     // const resultado = await Promise.all(data)
     // setShowdrivers([...resultado.slice(initidx,finalidx)])
-    setShowdrivers([...alldriver.slice(initidx,finalidx)])
+    // setShowdrivers([...alldriver.slice(initidx,finalidx)])
+    setShowdrivers([...alldriver])
   }
   const showbddform = async() => {
     const drivers = await fetch('http://localhost:3002/driver/')
