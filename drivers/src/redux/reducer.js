@@ -1,25 +1,24 @@
-import { FILLSD,FILLHD,ORDERALFA,ORDEROPOSITEALFA,ORDERALFASEARCH,ORDEROPOSITEALFASEARCH } from "./type-actions"
+import { ALLDRIVERS,FILLHD,FILLSD,ORDERALFA, ORDEROPOSITEALFA, ORDERALFASEARCH, ORDEROPOSITEALFASEARCH, SETDRIVERS,ALLTEAMS, ALLDRIVERSBDD } from "./type-actions";
 
 const initial_state = {
-    homedrivers: [],
-    searchdrivers:[],
+    conductores: [],
+    equipos: [],
+    conductoresbdd:[],
     neworder : []
 }
 
-const rootReducer = (state=initial_state,action) =>{
-    switch(action.type){
-        case FILLHD: // esto tiene que ser llamado ademas del dipatch y el useselector con el useEffect para que sea instantaneo en home y pueda realizar los filtrados
-            return {...state,homedrivers:action.payload}
-        case FILLSD:
-            return {...state,searchdrivers:[state.searchdrivers,action.payload]}
-        case ORDERALFA:
-            return {...state,neworder:[state.homedrivers.sort()]}
-        case ORDEROPOSITEALFA:
-            return {...state,neworder:[state.homedrivers.sort((a,b)=>(b,a))]}
-        case ORDERALFASEARCH:
-            return {...state,neworder:[state.searchdrivers.sort()]}
-        case ORDEROPOSITEALFASEARCH:
-            return {...state,neworder:[state.searchdrivers.sort((a,b)=>(b,a))]}
+const rootReducer = (state=initial_state,{type,payload}) =>{
+    switch (type){
+        case ALLDRIVERS:
+            return {...state,conductores:payload}
+        case SETDRIVERS:
+            return {...state,conductores:payload}
+        case ALLTEAMS:
+            return {...state,equipos:payload}
+        case ALLDRIVERSBDD:
+            return {...state,conductoresbdd:payload}
+        default:
+            return {...state}
     }
 }
 

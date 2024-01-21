@@ -2,9 +2,14 @@ import { useEffect } from "react"
 import Driver from "./Driver"
 import Pagination from "./Pagination"
 import '../Styles/Showdrivers.css'
+import { useSelector,useDispatch } from "react-redux";
+import {alldrivers} from "../redux/actions";
+
 // import { useSelector,useDispatch } from "react-redux"
 // import { fillhd,fillsd,orderalfa,orderopositealfa,orderalfasearch,orderopositealfasearch } from "../redux/actions"
 const Showdrivers = (props) => {
+    const dispatch = useDispatch()
+    const drivers = useSelector(state => state.conductores)
     // const dispatch = useDispatch()
     const initidx = props.qt*(props.page-1)
     const finalidx = props.page*props.qt
@@ -19,20 +24,26 @@ const Showdrivers = (props) => {
         }
     }
     const all_drivers = () => props.showdrivershome()
+    // useEffect(()=>{
+    //     all_drivers()
+    //     const alldrivers = all_drivers()
+    //     // for (var i=0;i<=alldrivers.length;i++){
+    //     //     dispatch(fillhd(alldrivers[i]))
+    //     // }
+    // },[props.page])
     useEffect(()=>{
-        all_drivers()
-        const alldrivers = all_drivers()
-        // for (var i=0;i<=alldrivers.length;i++){
-        //     dispatch(fillhd(alldrivers[i]))
-        // }
-    },[props.page])
-    console.log(props.showdrivers)
-
+        // all_drivers()
+        dispatch(alldrivers())
+    },[dispatch])
+    console.log(drivers)
+    
+    
+    
     // const conductores = useSelector(state=>state.homedrivers)
     // console.log(conductores)
     return (
             <div class="contenedor">
-                {props.showdrivers.slice(initidx,finalidx).map((driver)=>{
+                {drivers.slice(initidx,finalidx).map((driver)=>{
                     return (
                         <div class="elemento">
                             <Driver

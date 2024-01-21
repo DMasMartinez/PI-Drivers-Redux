@@ -1,21 +1,25 @@
 import { useState,useEffect } from "react"
 import { useReducer } from "react";
+import { UseSelector, useDispatch, useSelector } from "react-redux";
+import { allteams } from "../redux/actions";
 const Orderalfa = (props) => {
     const [optionselect,setOptionselect] = useState('')
     const [origenselect,setOrigenselect] = useState('')
     const [newteam,setNewteam] = useState('')
     const [date,setDate] = useState('')
     const [ignored,forceUpdate] = useReducer(x=>x+1,0);
-
+    const conductores = useSelector(state=>state.conductores)
+    const equipos = useSelector(state=>state.equipos)
+    const dispatch = useDispatch()
     function handlerchange(event){
         if (event.target.name==="alfabetico"){
             const newchoice = event.target.value
             setOptionselect(newchoice)
             if (newchoice==='A-Z'){
-                props.orderalfa(props.showdrivers)
+                props.orderalfa(conductores)
             }
             else if (newchoice==='Z-A'){
-                props.ordernoalfa(props.showdrivers)
+                props.ordernoalfa(conductores)
             }
             // }else{
             //     return
@@ -33,21 +37,22 @@ const Orderalfa = (props) => {
         }else if (event.target.name==="teams"){
             const equipo = event.target.value
             setNewteam(equipo)
-            props.driversteam(equipo,props.showdrivers)
+            props.driversteam(equipo,conductores)
         }else if (event.target.name==="birdate"){
             const orden = event.target.value
             setDate(orden)
             if (orden==="ascendente"){
-                props.fecha_ascendente(props.showdrivers)
+                props.fecha_ascendente(conductores)
             }else if (orden==="descendente"){
-                props.fecha_descendente(props.showdrivers)
+                props.fecha_descendente(conductores)
             }
 
         }
         forceUpdate()   
     }
     useEffect(()=>{
-        props.showteamsform()
+        // props.showteamsform()
+        dispatch(allteams())
     },[])
     return (
         <div>
@@ -62,7 +67,7 @@ const Orderalfa = (props) => {
             </select>
             <select name="teams" value={newteam} onChange={handlerchange}>
                 <option value=" "> </option>
-                {props.team.map((team)=>{
+                {equipos.map((team)=>{
                     return (
                         <option value={team}>{team}</option>
                     )

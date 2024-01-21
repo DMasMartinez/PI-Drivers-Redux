@@ -10,7 +10,10 @@ import Form from './views/Form';
 import Home from './views/Home';
 import Searching from './views/Searching';
 import Detail from './views/Detail';
+import { useDispatch } from 'react-redux';
+import { setdrivers } from './redux/actions';
 function App() {
+  const dispatch = useDispatch()
   const [driverlist,setDriverlist] = useState([]) // lista de search
   const [showdrivers,setShowdrivers] = useState([]) // lista de home para mostrar drivers de la API
   const [team,setTeam]=useState([]) //lista para acumular todos los teams
@@ -76,7 +79,8 @@ function App() {
       }
 
     }
-    setShowdrivers(newlista)
+    // setShowdrivers(newlista)
+    dispatch(setdrivers(newlista))
   }
 
   const orderalfa1 = (lista) =>{
@@ -106,7 +110,8 @@ function App() {
       }
 
     }
-    setShowdrivers(newlista)
+    // setShowdrivers(newlista)
+    dispatch(setdrivers(newlista))
   }
   const ordernoalfa1 = (lista) => {
     const alfabeto = 'zyxwvutsrqponmlkjihgfedcba'
@@ -132,7 +137,8 @@ function App() {
         }
       }
     }
-    setShowdrivers(listilla)
+    // setShowdrivers(listilla)
+    dispatch(setdrivers(listilla))
   }
   const driversteam1 =(team,lista)=>{
     const listilla = []
@@ -171,7 +177,8 @@ function App() {
         }
       }
     }
-    setShowdrivers(newlista3)
+    // setShowdrivers(newlista3)
+    dispatch(setdrivers(newlista3))
   }
   const fecha_ascendente1=(lista)=>{
     // const fechaObjeto = new Date(objetoConFecha.fecha)
@@ -221,7 +228,8 @@ function App() {
         }
       }
     }
-    setShowdrivers(newlista3)
+    // setShowdrivers(newlista3)
+    dispatch(setdrivers(newlista3))
     
   }
   const fecha_descendente1=(lista)=>{

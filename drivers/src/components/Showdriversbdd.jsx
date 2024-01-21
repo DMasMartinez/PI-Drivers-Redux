@@ -1,15 +1,19 @@
 import { useState,useEffect } from "react"
 import toreto from '../utils/toreto.jpeg'
+import { useDispatch,useSelector } from "react-redux"
+import { alldriversbdd } from "../redux/actions"
 const Showdriversbdd = (props) =>{
-
+    const dispatch = useDispatch()
+    const conductoresbdd = useSelector(state=>state.conductoresbdd)
     useEffect(()=>{
-        props.showbddform()
+        // props.showbddform()
+        dispatch(alldriversbdd())
     },[])
     
-    console.log(props.showdriversbdd)
+    console.log(conductoresbdd)
     return (
         <div>
-            {props.showdriversbdd.map((driver)=>{
+            {conductoresbdd.map((driver)=>{
                 return(
                     <div>
                         <img src={toreto} alt={driver.name}/>
