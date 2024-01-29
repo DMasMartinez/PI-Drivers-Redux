@@ -1,10 +1,10 @@
 import Drivers from "../components/Drivers";
-
+import { UseSelector, useSelector } from "react-redux";
 const Searching = (props) => {
-    console.log(props.driverlist)
+    const conductoresearch = useSelector(state=>state.conductoresearch)
     return (
         <div>
-            <Drivers driverlist = {props.driverlist}/>
+            <Drivers conductoresearch = {conductoresearch}/>
         </div>
     )
 }

@@ -15,7 +15,7 @@ const Pagination = (props) => {
     return (
             <div class="framepagination">
                     <span class="extremoizq">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a>
                             <button aria-hidden="true" onClick={()=>props.previouspage()}>&laquo;</button>
                         </a>
                     </span>
@@ -23,14 +23,14 @@ const Pagination = (props) => {
                         return (
                             <div class="intermedios">
                                 <span>
-                                    <a class="page-link" href="#">{page}</a>
+                                    <a>{page}</a>
                                 </span>
                             </div>
                         )
                     })}
                     <span class="extremoder">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <button aria-hidden="true" onClick={()=>props.nexpage()}>&raquo;</button>
+                        <a>
+                            <button onClick={()=>props.nexpage()}>&raquo;</button>
                         </a>
                     </span>
             </div>

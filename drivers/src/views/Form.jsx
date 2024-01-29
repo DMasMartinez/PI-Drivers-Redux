@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 // import Select, { useStateManager } from 'react-select';
 import { debounce } from 'lodash';
+import { useDispatch,useSelector } from "react-redux";
+import { allteams } from "../redux/actions";
 
 function errorhandler(error,setError,driver,property){
     if (typeof driver.property!=="string"){
@@ -13,6 +15,8 @@ function errorhandler(error,setError,driver,property){
 
 // traigo del back lo que esta en la base de datos y lo traigo con useefect del componente padre
 const Form = (props) => {
+    const dispatch = useDispatch()
+    const teams = useSelector(state=>state.equipos)
     const [driver,setDriver] = useState({
         id:55000,
         name:"",
@@ -34,6 +38,7 @@ const Form = (props) => {
     })
     function newid(){
         setDriver({...driver,id:driver.id+1})
+
     }
     function handlerchange(event){
         if (event.target.name==="name"){
@@ -66,6 +71,7 @@ const Form = (props) => {
         e.preventDefault();
         // const newdriver = props.convert(driver)
         try {
+            console.log(driver)
           const response = await fetch('http://localhost:3002/driver/', {
             method: 'POST',
             headers: {
@@ -85,14 +91,14 @@ const Form = (props) => {
         }
     };
     useEffect(()=>{
-        props.showteamsform()
-        // props.showdrivershome()
+        dispatch(allteams())
     },[])
-    console.log(props.showdrivers)
-    const teamoptions = props.team.map((idx,team)=>({
-        label:idx,
-        value:idx
-    }))
+    // console.log(props.showdrivers)
+    // const teamoptions = props.team.map((idx,team)=>({
+    //     label:idx,
+    //     value:idx
+    // }))
+    console.log(driver)
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -122,7 +128,7 @@ const Form = (props) => {
                 {error.description&&<h2>{error.description}</h2>}
 
                 <select name="teams" value={driver.teams} onChange={handlerchange}>
-                    {props.team.map((team)=>{
+                    {teams.map((team)=>{
                         return(
                             <option value={team}>{team}</option>
                         )

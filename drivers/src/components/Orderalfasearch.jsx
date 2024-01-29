@@ -2,7 +2,12 @@
 
 import { useState,useEffect } from "react"
 import { useReducer } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { allteams } from "../redux/actions";
 const Orderalfasearch = (props) => {
+    const dispatch = useDispatch()
+    const teams = useSelector(state=>state.equipos)
+    const conductoresearch = useSelector(state=>state.conductoresearch)
     const [optionselect,setOptionselect] = useState('')
     const [origenselect,setOrigenselect] = useState('')
     const [newteam,setNewteam] = useState('')
@@ -14,10 +19,10 @@ const Orderalfasearch = (props) => {
             const newchoice = event.target.value
             setOptionselect(newchoice)
             if (newchoice==='A-Z'){
-                props.orderalfa1(props.driverlist)
+                props.orderalfa1(conductoresearch)
             }
             else if (newchoice==='Z-A'){
-                props.ordernoalfa1(props.driverlist)
+                props.ordernoalfa1(conductoresearch)
             }
             // }else{
             //     return
@@ -25,21 +30,21 @@ const Orderalfasearch = (props) => {
         }else if (event.target.name==="teams"){
             const equipo = event.target.value
             setNewteam(equipo)
-            props.driversteam1(equipo,props.driverlist)
+            props.driversteam1(equipo,conductoresearch)
         }else if (event.target.name==="birdate"){
             const orden = event.target.value
             setDate(orden)
             if (orden==="ascendente"){
-                props.fecha_ascendente1(props.driverlist)
+                props.fecha_ascendente1(conductoresearch)
             }else if (orden==="descendente"){
-                props.fecha_descendente1(props.driverlist)
+                props.fecha_descendente1(conductoresearch)
             }
 
         }
         forceUpdate()   
     }
     useEffect(()=>{
-        props.showteamsform()
+        dispatch(allteams())
     },[])
     return (
         <div>
@@ -50,7 +55,7 @@ const Orderalfasearch = (props) => {
             </select>
 
             <select name="teams" value={newteam} onChange={handlerchange}>
-                {props.team.map((team)=>{
+                {teams.map((team)=>{
                     return (
                         <option value={team}>{team}</option>
                     )

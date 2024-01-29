@@ -11,14 +11,11 @@ import Home from './views/Home';
 import Searching from './views/Searching';
 import Detail from './views/Detail';
 import { useDispatch } from 'react-redux';
-import { setdrivers } from './redux/actions';
+import { setdrivers,setdriversearch } from './redux/actions';
 function App() {
   const dispatch = useDispatch()
-  const [driverlist,setDriverlist] = useState([]) // lista de search
-  const [showdrivers,setShowdrivers] = useState([]) // lista de home para mostrar drivers de la API
-  const [team,setTeam]=useState([]) //lista para acumular todos los teams
+  const [driverlist,setDriverlist] = useState([]) // lista de search // lista de home para mostrar drivers de la API
   const [origen,setOrigen] = useState('API') // sirve para filtrar los drivers mostrados en home ya sea API o BDD
-  const [showdriversbdd,setShowdriversbdd] = useState([])
   // const [surename,setSurename] = useState([])
 
   const [qt,setQt] = useState(9)
@@ -27,44 +24,13 @@ function App() {
   // const finalidx = page*qt
   const location = useLocation()
   const navigate = useNavigate()
-  const search = (name) => {
-    fetch(`http://localhost:3002/driver/?name=${name}`)
-      .then(res=>res.json())
-      .then(data=>setDriverlist([...driverlist,data]))
-    navigate('/Searching')
-  }
-
-  // const showdrivershome1 = async() => {
-  //   const drivers = await fetch('http://localhost:5001/drivers/?_limit=60')
-  //   const data = await drivers.json()
-  //   setShowdrivers([...data.slice(initidx,finalidx)])
+  // const search = (name) => {
+  //   fetch(`http://localhost:3002/driver/?name=${name}`)
+  //     .then(res=>res.json())
+  //     .then(data=>setDriverlist([...driverlist,data]))
+  //   navigate('/Searching')
   // }
-  const showdrivershome = async() => {
-    const newarrayindex = Array.from({ length: 60 }, (_, index) => index+1)
-    const drivers = newarrayindex.map(async(id)=>{
-      const res = await fetch(`http://localhost:5001/drivers/${id}`)
-      const data = res.json()
-      return data
-    })
-    const alldriver = await Promise.all(drivers)
 
-    // newarrayindex.map((id)=>fetch(`http://localhost:5001/drivers/${id}`))
-    // const data = newarrayindex.map((datas)=>datas.json())
-    // const resultado = await Promise.all(data)
-    // setShowdrivers([...resultado.slice(initidx,finalidx)])
-    // setShowdrivers([...alldriver.slice(initidx,finalidx)])
-    setShowdrivers([...alldriver])
-  }
-  const showbddform = async() => {
-    const drivers = await fetch('http://localhost:3002/driver/')
-    const data = await drivers.json()
-    setShowdriversbdd(data.filter((data)=>data.id>55000))
-  }
-  const showteamsform = async() => {
-    const teams = await fetch('http://localhost:3002/teams/')
-    const data = await teams.json()
-    setTeam(data)
-  }
   
   const orderalfa = (lista) =>{
     const alfabeto = 'abcdefghijklmnopqrstuvwxyz'
@@ -79,7 +45,6 @@ function App() {
       }
 
     }
-    // setShowdrivers(newlista)
     dispatch(setdrivers(newlista))
   }
 
@@ -96,7 +61,8 @@ function App() {
       }
 
     }
-    setDriverlist(newlista)
+    // setDriverlist(newlista)
+    dispatch(setdriversearch(newlista))
   }
   const ordernoalfa = (lista) => {
     const alfabeto = 'zyxwvutsrqponmlkjihgfedcba'
@@ -110,7 +76,6 @@ function App() {
       }
 
     }
-    // setShowdrivers(newlista)
     dispatch(setdrivers(newlista))
   }
   const ordernoalfa1 = (lista) => {
@@ -125,7 +90,8 @@ function App() {
       }
 
     }
-    setDriverlist(newlista)
+    // setDriverlist(newlista)
+    dispatch(setdriversearch(newlista))
   }
   const driversteam =(team,lista)=>{
     const listilla = []
@@ -137,7 +103,6 @@ function App() {
         }
       }
     }
-    // setShowdrivers(listilla)
     dispatch(setdrivers(listilla))
   }
   const driversteam1 =(team,lista)=>{
@@ -150,7 +115,7 @@ function App() {
         }
       }
     }
-    setDriverlist(listilla)
+    dispatch(setdriversearch(listilla))
   }
   const fecha_ascendente=(lista)=>{
     // const fechaObjeto = new Date(objetoConFecha.fecha)
@@ -177,7 +142,6 @@ function App() {
         }
       }
     }
-    // setShowdrivers(newlista3)
     dispatch(setdrivers(newlista3))
   }
   const fecha_ascendente1=(lista)=>{
@@ -205,10 +169,10 @@ function App() {
         }
       }
     }
-    setDriverlist(newlista3)
+    // setDriverlist(newlista3)
+    dispatch(setdriversearch(newlista3))
   }
   const fecha_descendente=(lista)=>{
-    // const fechaObjeto = new Date(objetoConFecha.fecha)
     const newlista = []
     const newlista2 = []
     const newlista3 = []
@@ -216,8 +180,8 @@ function App() {
     newlista.map((driver)=>newlista2.push(new Date(driver)))
     const listadescendente = newlista2.sort((a,b)=>b-a)
     for (var i=0;i<listadescendente.length;i++){
-        const dia = listadescendente[i].getDate().toString().padStart(2, '0'); // Agrega un cero al inicio si es necesario
-        const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0'); // Sumar 1 porque los meses van de 0 a 11
+        const dia = listadescendente[i].getDate().toString().padStart(2, '0');
+        const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0');
         const año = listadescendente[i].getFullYear();
         const newday= parseInt(dia,10)
         const newday1 = (newday+1).toString()
@@ -228,12 +192,10 @@ function App() {
         }
       }
     }
-    // setShowdrivers(newlista3)
     dispatch(setdrivers(newlista3))
     
   }
   const fecha_descendente1=(lista)=>{
-    // const fechaObjeto = new Date(objetoConFecha.fecha)
     const newlista = []
     const newlista2 = []
     const newlista3 = []
@@ -241,8 +203,8 @@ function App() {
     newlista.map((driver)=>newlista2.push(new Date(driver)))
     const listadescendente = newlista2.sort((a,b)=>b-a)
     for (var i=0;i<listadescendente.length;i++){
-        const dia = listadescendente[i].getDate().toString().padStart(2, '0'); // Agrega un cero al inicio si es necesario
-        const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0'); // Sumar 1 porque los meses van de 0 a 11
+        const dia = listadescendente[i].getDate().toString().padStart(2, '0');
+        const mes = (listadescendente[i].getMonth() + 1).toString().padStart(2, '0');
         const año = listadescendente[i].getFullYear();
         const newday= parseInt(dia,10)
         const newday1 = (newday+1).toString()
@@ -253,27 +215,27 @@ function App() {
         }
       }
     }
-    setDriverlist(newlista3)
+    dispatch(setdriversearch(newlista3))
   }
-  const convert_to_format = (object) => {
-    const {name,surname,nationality,number} = object;
-    const newobject ={
-      "name":name,
-      "surname":surname,
-      "nationality":nationality,
-      "number":number
-    }
-    return newobject
-  }
+  // const convert_to_format = (object) => {
+  //   const {name,surname,nationality,number} = object;
+  //   const newobject ={
+  //     "name":name,
+  //     "surname":surname,
+  //     "nationality":nationality,
+  //     "number":number
+  //   }
+  //   return newobject
+  // }
   return (
     <div className="App">
-      {location.pathname!=='/'&&<Navbar search = {search} orderalfa={orderalfa} orderalfa1={orderalfa1} ordernoalfa = {ordernoalfa} ordernoalfa1={ordernoalfa1} showdrivers={showdrivers} setShowdrivers = {setShowdrivers} origen={origen} setOrigen={setOrigen} showteamsform={showteamsform} team={team} driversteam={driversteam} driversteam1={driversteam1} fecha_ascendente={fecha_ascendente} fecha_ascendente1={fecha_ascendente1} fecha_descendente={fecha_descendente} fecha_descendente1={fecha_descendente1} driverlist={driverlist} setDriverlist={setDriverlist}/>}
+      {location.pathname!=='/'&&<Navbar orderalfa={orderalfa} orderalfa1={orderalfa1} ordernoalfa = {ordernoalfa} ordernoalfa1={ordernoalfa1} origen={origen} setOrigen={setOrigen} driversteam={driversteam} driversteam1={driversteam1} fecha_ascendente={fecha_ascendente} fecha_ascendente1={fecha_ascendente1} fecha_descendente={fecha_descendente} fecha_descendente1={fecha_descendente1} driverlist={driverlist} setDriverlist={setDriverlist}/>}
       <Routes>
         <Route path='/detail/:name' element={<Detail/>}/>
         <Route path='/' element={<Landing/>}/>
-        <Route path='/Home' element={<Home showdrivers = {showdrivers} page = {page} setPage = {setPage} showdrivershome = {showdrivershome} qt={qt} origen={origen} setOrigen={setOrigen} showdriversbdd={showdriversbdd} showbddform={showbddform}/>}/>
+        <Route path='/Home' element={<Home page = {page} setPage = {setPage} qt={qt} origen={origen} setOrigen={setOrigen}/>}/>
         <Route path='/Searching' element={<Searching driverlist={driverlist}/>}/>
-        <Route path='/form' element={<Form convert = {convert_to_format} showteamsform={showteamsform} team={team} setShowdrivers={setShowdrivers} showdrivers={showdrivers}/>}/>
+        <Route path='/form' element={<Form/>}/>
       </Routes>
       {/* <Drivers driverlist = {driverlist}/> */}
     </div>

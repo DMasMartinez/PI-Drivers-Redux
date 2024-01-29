@@ -1,4 +1,5 @@
-import { ALLDRIVERS,FILLHD,FILLSD,ORDERALFA, ORDEROPOSITEALFA, ORDERALFASEARCH, ORDEROPOSITEALFASEARCH, SETDRIVERS,ALLTEAMS, ALLDRIVERSBDD } from "./type-actions";
+import { ALLDRIVERS,FILLHD,SETDRIVERSEARCH,FILLSD,ORDERALFA,DRIVERSEARCH, ORDEROPOSITEALFA, ORDERALFASEARCH, ORDEROPOSITEALFASEARCH, SETDRIVERS,ALLTEAMS, ALLDRIVERSBDD } from "./type-actions";
+
 
 export const alldrivers = () =>{
 
@@ -23,6 +24,12 @@ export const setdrivers = (driver) =>{
         payload:driver
     }
 }
+export const setdriversearch = (driver)=>{
+    return {
+        type:SETDRIVERSEARCH,
+        payload:driver
+    }
+}
 export const allteams = () =>{
     return async function(dispatch){
         fetch('http://localhost:3002/teams/')
@@ -37,14 +44,18 @@ export const alldriversbdd = () =>{
         //     .then(data=>dispatch({type:ALLDRIVERSBDD,payload:data[0]}))
         const response = await fetch('http://localhost:3002/driver/');
         const data = await response.json();
+        const newdata = data.filter((data)=>data.id>50000)
 
-        return dispatch({ type: ALLDRIVERSBDD, payload: data });
+        return dispatch({ type: ALLDRIVERSBDD, payload: newdata });
     }
 }
-export const orderalfasearch = () =>{
-    return {
-        type:ORDERALFASEARCH,
-
+export const driversearch = (name) =>{
+    
+    return async function(dispatch) {
+        fetch(`http://localhost:3002/driver/?name=${name}`)
+            .then(res=>res.json())
+            .then(data=>dispatch({type: DRIVERSEARCH, payload:data}))
+        
     }
 }
 export const orderopositealfasearch = () =>{

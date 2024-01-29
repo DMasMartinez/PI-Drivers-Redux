@@ -5,12 +5,9 @@ import '../Styles/Showdrivers.css'
 import { useSelector,useDispatch } from "react-redux";
 import {alldrivers} from "../redux/actions";
 
-// import { useSelector,useDispatch } from "react-redux"
-// import { fillhd,fillsd,orderalfa,orderopositealfa,orderalfasearch,orderopositealfasearch } from "../redux/actions"
 const Showdrivers = (props) => {
     const dispatch = useDispatch()
     const drivers = useSelector(state => state.conductores)
-    // const dispatch = useDispatch()
     const initidx = props.qt*(props.page-1)
     const finalidx = props.page*props.qt
     function nexpage(){
@@ -23,24 +20,12 @@ const Showdrivers = (props) => {
             props.setPage(props.page-1)
         }
     }
-    const all_drivers = () => props.showdrivershome()
-    // useEffect(()=>{
-    //     all_drivers()
-    //     const alldrivers = all_drivers()
-    //     // for (var i=0;i<=alldrivers.length;i++){
-    //     //     dispatch(fillhd(alldrivers[i]))
-    //     // }
-    // },[props.page])
+
     useEffect(()=>{
-        // all_drivers()
         dispatch(alldrivers())
     },[dispatch])
     console.log(drivers)
-    
-    
-    
-    // const conductores = useSelector(state=>state.homedrivers)
-    // console.log(conductores)
+
     return (
             <div class="contenedor">
                 {drivers.slice(initidx,finalidx).map((driver)=>{
@@ -56,30 +41,9 @@ const Showdrivers = (props) => {
                         </div>
                     )
                 })}
-                <Pagination nexpage={nexpage} previouspage={previouspage} showdrivers = {props.showdrivers} qt = {props.qt}/>
+                <Pagination nexpage={nexpage} previouspage={previouspage} qt = {props.qt}/>
             </div>
-
-        
-
     )
 }
 
 export default Showdrivers;
-        // <div class="container text-center">
-        //     <div class="row">
-        //         {props.showdrivers.map((driver)=>{
-        //             return (
-        //                 <div class="col-md-6 md-6">
-        //                     <Driver
-        //                         name = {driver.name.forename}
-        //                         surname = {driver.name.surname}
-        //                         image = {driver.image.url}
-        //                         description = {driver.description}
-        //                         teams = {driver.teams}
-        //                     />
-        //                 </div>
-        //             )
-        //         })}
-        //         <Pagination nexpage={nexpage} previouspage={previouspage} showdrivers = {props.showdrivers} qt = {props.qt}/>
-        //     </div>
-        // </div>
