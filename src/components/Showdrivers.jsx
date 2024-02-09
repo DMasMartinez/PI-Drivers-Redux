@@ -1,38 +1,49 @@
 import { useEffect } from "react"
 import Driver from "./Driver"
-const showdrivers = () => {
+import Pagination from "./Pagination"
+import '../Styles/Showdrivers.css'
+import { useSelector,useDispatch } from "react-redux";
+import {alldrivers} from "../redux/actions";
+
+const Showdrivers = (props) => {
+    const dispatch = useDispatch()
+    const drivers = useSelector(state => state.conductores)
+    const initidx = props.qt*(props.page-1)
+    const finalidx = props.page*props.qt
     function nexpage(){
-        if (page<=10){
-            setPage(page+1)
+        if (props.page<=10){
+            props.setPage(props.page+1)
         }
     }
     function previouspage(){
-        if (page>0){
-            setPage(page-1)
+        if (props.page>0){
+            props.setPage(props.page-1)
         }
     }
-    function showdrivers(){
-        return props.showdrivershome()
-    }
+
     useEffect(()=>{
-        showdrivers()
-    },[props.page])
+        dispatch(alldrivers())
+    },[dispatch])
+    console.log(drivers)
+
     return (
-        <div>
-            {props.showdrivers.map((driver)=>{
-                return (
-                    <Driver
-                        name = {driver.forename.name}
-                        surname = {driver.forename.surname}
-                        image = {driver.image.url}
-                        description = {driver.description}
-                    />
-                )
-            })}
-            <button onClick={()=>nexpage}>anterior</button>
-            <button onClick={()=>previouspage}>siguiente</button>
-        </div>
+            <div class="contenedor">
+                {drivers.slice(initidx,finalidx).map((driver)=>{
+                    return (
+                        <div class="elemento">
+                            <Driver
+                                name = {driver.name.forename}
+                                surname = {driver.name.surname}
+                                image = {driver.image.url}
+                                description = {driver.description}
+                                teams = {driver.teams}
+                            />
+                        </div>
+                    )
+                })}
+                <Pagination nexpage={nexpage} previouspage={previouspage} qt = {props.qt}/>
+            </div>
     )
 }
 
-export default showdrivers
+export default Showdrivers;

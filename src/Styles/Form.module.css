@@ -1,0 +1,17 @@
+.success {
+    color: greenyellow;
+}
+
+.fail {
+    color: red;
+}
+
+.realsuccess {
+    background-color: green;
+    border: 2px greenyellow;
+}
+
+.realfail {
+    background-color: red;
+    border: 2px pink;
+}

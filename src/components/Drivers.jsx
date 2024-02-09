@@ -1,20 +1,23 @@
 import Driver from "./Driver"
+import { useEffect } from "react"
+import { driversearch } from "../redux/actions"
 const Drivers = (props) => {
+
+    console.log(props.conductoresearch)
     return (
         <div>
-            {props.driverlist.map((driver)=>{
+            {props.conductoresearch.map((driver)=>{
                 return(
                     <Driver
-                        name = {driver.forename.name}
-                        surname = {driver.forename.surname}
-                        image = {driver.image.url}
+                        name = {driver.name}
+                        surname = {driver.surname}
+                        image = {driver.image}
                         description = {driver.description}
                     />
                 )
             })}
         </div>
     )
-
 }
         
   

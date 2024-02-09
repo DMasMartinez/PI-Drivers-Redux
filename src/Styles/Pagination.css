@@ -1,0 +1,22 @@
+
+.framepagination {
+    display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.extremoizq .extremoder .intermedios{
+    display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+  transition: background-color 0.3s;
+}
+
+
+.extremoizq .extremoder .intermedios:hover {
+    background-color: #f2f2f2;
+  }

@@ -1,0 +1,39 @@
+
+.framedriver{
+    border: red outset;
+    border-radius: 10px;
+    border-width: 10px;
+    background-color: rgba(255,0,0, 0.7);
+    background-image:url('../utils/tokyodrift.jpeg');
+    background-size: 400px 500px;
+    height: 500px;
+    width: 400px;
+}
+.imagen img{
+    border-radius: 10px;
+    margin: 50px 50px 50px 100px;
+    
+}
+
+.textocard {
+    color: white;
+    border: black;
+    background-color: rgba(255, 100, 100, 0.6);
+}
+a{
+    font-size: xx-large;
+    text-decoration: dotted;
+}
+
+a:link{
+    color: blueviolet;
+}
+a:visited{
+    color: gray;
+}
+a:hover{
+    color: yellow;
+}
+a:active{
+    color: red;
+}

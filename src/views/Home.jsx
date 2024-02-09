@@ -1,9 +1,11 @@
+import Showdriversbdd from "../components/Showdriversbdd"
 
-import showdrivers from "../components/Showdrivers"
+import Showdrivers from "../components/Showdrivers"
 const Home = (props) => {
+    console.log(props.origen)
     return (
         <div>
-            <Showdrivers showdrivers={props.showdrivers} setPage = {props.setPage} page = {props.page}/>
+            {props.origen==="API"?(<Showdrivers showdrivers={props.showdrivers} setPage = {props.setPage} page = {props.page} showdrivershome={props.showdrivershome} qt={props.qt}/>):(<Showdriversbdd showdriversbdd={props.showdriversbdd} showbddform = {props.showbddform} showsurenameform={props.showsurenameform} surename={props.surename}/>)}
         </div>
     )
 }
